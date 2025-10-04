@@ -2,8 +2,8 @@ import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import ServiceCategories from "@/components/ServiceCategories";
 import FeaturedSalons from "@/components/FeaturedSalons";
-import HowItWorks from "@/components/HowItWorks";
 import YouTubeVideos from "@/components/YouTubeVideos";
+import HowItWorks from "@/components/HowItWorks";
 import Footer from "@/components/Footer";
 
 const Index = () => {

@@ -1,9 +1,19 @@
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Search, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import heroImage from "@/assets/hero-beauty.jpg";
 
 const Hero = () => {
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [location, setLocation] = useState("");
+
+  const handleSearch = () => {
+    navigate(`/search?service=${encodeURIComponent(searchTerm)}&location=${encodeURIComponent(location)}`);
+  };
+
   return (
     <section className="relative min-h-[90vh] flex items-center overflow-hidden">
       {/* Background Image with Overlay */}
@@ -39,6 +49,9 @@ const Hero = () => {
                 <Input 
                   placeholder="Search for services (e.g., haircut, facial, massage)" 
                   className="pl-10 h-12 border-border/50 focus:border-primary"
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                 />
               </div>
 
@@ -48,11 +61,18 @@ const Hero = () => {
                 <Input 
                   placeholder="Location" 
                   className="pl-10 h-12 border-border/50 focus:border-primary"
+                  value={location}
+                  onChange={(e) => setLocation(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                 />
               </div>
 
               {/* Search Button */}
-              <Button size="lg" className="h-12 px-8 bg-gradient-accent hover:opacity-90 transition-opacity shadow-glow">
+              <Button 
+                size="lg" 
+                className="h-12 px-8 bg-gradient-accent hover:opacity-90 transition-opacity shadow-glow"
+                onClick={handleSearch}
+              >
                 <Search className="h-5 w-5 mr-2" />
                 Search
               </Button>
@@ -65,6 +85,10 @@ const Hero = () => {
                 <button
                   key={tag}
                   className="px-3 py-1 text-sm rounded-full bg-secondary hover:bg-secondary/80 transition-colors"
+                  onClick={() => {
+                    setSearchTerm(tag);
+                    handleSearch();
+                  }}
                 >
                   {tag}
                 </button>
